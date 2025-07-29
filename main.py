@@ -1,3 +1,5 @@
+print("[BOOT] Trend Intelligence Bot starting...")
+
 import asyncio
 from scraper.tiktok_scraper import scrape_tiktok_trends
 from db.database import save_to_json
