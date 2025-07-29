@@ -1,23 +1,37 @@
+# scraper/tiktok_scraper.py
+
 from TikTokApi import TikTokApi
-import asyncio
 
 async def scrape_tiktok_trends(limit=100):
-    async with TikTokApi() as api:
-        await api.create_sessions()
-        trending = api.trending()
+    print(f"[SCRAPER] Scraping {limit} trending TikToks...")
 
-        results = []
-        async for video in trending:
-            results.append({
-                "id": video.id,
-                "desc": video.desc,
-                "author": video.author.username,
-                "stats": video.stats,
-            })
-            if len(results) >= limit:
-                break
+    try:
+        async with TikTokApi() as api:
+            await api.create_sessions()
 
-        return results
+            results = []
+            async for video in api.trending():
+                results.append({
+                    "id": video.id,
+                    "desc": video.desc,
+                    "author": video.author.username,
+                    "stats": {
+                        "plays": video.stats.play_count,
+                        "likes": video.stats.like_count,
+                        "shares": video.stats.share_count,
+                        "comments": video.stats.comment_count,
+                        "saves": video.stats.save_count
+                    },
+                    "music": {
+                        "title": video.music.title,
+                        "author": video.music.author
+                    }
+                })
+
+                if len(results) >= limit:
+                    break
+
+            return results
 
     except Exception as e:
         print(f"[ERROR] TikTok scraping failed: {e}")
