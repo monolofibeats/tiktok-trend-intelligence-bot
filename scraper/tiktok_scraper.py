@@ -7,20 +7,20 @@ def scrape_trending(limit=100):
     logging.debug("[SCRAPER] Scraping %s trending TikToks...", limit)
 
     try:
-        with TikTokApi() as api:
-            trending = api.trending(count=limit)
-            trends = []
+        api = TikTokApi()
+        trending = api.trending(count=limit)
+        trends = []
 
-            for video in trending:
-                trends.append({
-                    "id": video.id,
-                    "author": video.author.username,
-                    "desc": video.desc,
-                    "stats": video.stats.dict()
-                })
+        for video in trending:
+            trends.append({
+                "id": video.id,
+                "author": video.author.username,
+                "desc": video.desc,
+                "stats": video.stats.dict()
+            })
 
-            logging.debug("[SCRAPER] Success. First 3 trends: %s", trends[:3])
-            return trends
+        logging.debug("[SCRAPER] Success. First 3 trends: %s", trends[:3])
+        return trends
 
     except Exception as e:
         logging.error("[ERROR] TikTok scraping failed: %s", e)
