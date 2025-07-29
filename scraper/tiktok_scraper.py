@@ -8,7 +8,8 @@ async def scrape_tiktok_trends(limit=100):
             await api.create_sessions()
 
             results = []
-            async for video in api.trending():
+            # NEW: Use api.feed.trending instead of api.trending()
+            async for video in api.feed.trending():
                 results.append({
                     "id": video.id,
                     "desc": video.desc,
