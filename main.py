@@ -1,13 +1,17 @@
-print("[BOOT] Trend Intelligence Bot starting...")
-
 import asyncio
 from scraper.tiktok_scraper import scrape_tiktok_trends
-from db.database import save_to_json
+
+async def main():
+    print("[DEBUG] main.py started")
+
+    try:
+        print("[SCRAPER] Scraping 100 trending TikToks...")
+        trends = await scrape_tiktok_trends(limit=100)
+        print("[SCRAPER] Success. First 3 trends:")
+        for trend in trends[:3]:
+            print(trend)
+    except Exception as e:
+        print("[ERROR] TikTok scraping failed:", e)
 
 if __name__ == "__main__":
-    print("[MAIN] Starting async scrape...")
-    trends = asyncio.run(scrape_tiktok_trends(limit=100))
-
-    print(f"[MAIN] Scrape complete. Found: {len(trends)} videos")
-    if trends:
-        save_to_json(trends)
+    asyncio.run(main())
