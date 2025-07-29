@@ -13,5 +13,8 @@ async def main():
     except Exception as e:
         print("[ERROR] TikTok scraping failed:", e)
 
+    # 👇 künstliche Pause, damit Logs nicht abgeschnitten werden
+    await asyncio.sleep(30)
+
 if __name__ == "__main__":
     asyncio.run(main())
