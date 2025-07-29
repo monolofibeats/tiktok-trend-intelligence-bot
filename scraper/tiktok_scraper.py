@@ -6,7 +6,7 @@ def scrape_tiktok_trends(limit=100):
 
     print(f"[SCRAPER] Scraping {limit} trending TikToks...")
     try:
-        trending = api.trending(count=limit)
+        trending = api.trending.videos(count=limit)
     except Exception as e:
         print(f"[ERROR] TikTok scraping failed: {e}")
         return []
