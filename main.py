@@ -1,22 +1,16 @@
-print("[DEBUG] Re-deploy triggered ✅")
-
+from TikTokApi import TikTokApi
 import asyncio
-from scraper.tiktok_scraper import scrape_tiktok_trends
+import logging
 
-async def main():
-    print("[DEBUG] main.py started")
-
+async def scrape_trending(limit=100):
     try:
-        print("[SCRAPER] Scraping 100 trending TikToks...")
-        trends = await scrape_tiktok_trends(limit=100)
-        print("[SCRAPER] Success. First 3 trends:")
-        for trend in trends[:3]:
-            print(trend)
+        logging.info("[SCRAPER] Scraping %s trending TikToks...", limit)
+        async with TikTokApi() as api:
+            trends = await api.trending(count=limit)
+            logging.info("[SCRAPER] Success. First 3 trends:")
+            for trend in trends[:3]:
+                logging.info(f" - {trend.author.username} - {trend.desc[:40]}")
+            return trends
     except Exception as e:
-        print("[ERROR] TikTok scraping failed:", e)
-
-    # 👇 künstliche Pause, damit Logs nicht abgeschnitten werden
-    await asyncio.sleep(30)
-
-if __name__ == "__main__":
-    asyncio.run(main())
+        logging.error(f"[ERROR] TikTok scraping failed: {e}")
+        return []
