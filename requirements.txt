@@ -1,4 +1,4 @@
-TikTokApi==7.2.2
+git+https://github.com/davidteather/TikTok-Api.git
 requests
 playwright
 asyncio
