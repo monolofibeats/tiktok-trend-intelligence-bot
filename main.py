@@ -1,3 +1,5 @@
+print("[DEBUG] Re-deploy triggered ✅")
+
 import asyncio
 from scraper.tiktok_scraper import scrape_tiktok_trends
 
