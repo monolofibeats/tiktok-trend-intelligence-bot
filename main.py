@@ -1,9 +1,9 @@
-import asyncio
+# main.py
+
 import logging
 from scraper.tiktok_scraper import scrape_trending
 
 logging.basicConfig(level=logging.DEBUG)
+logging.debug("main.py started")
 
-if __name__ == "__main__":
-    logging.debug("main.py started")
-    asyncio.run(scrape_trending(100))
+scrape_trending(100)
