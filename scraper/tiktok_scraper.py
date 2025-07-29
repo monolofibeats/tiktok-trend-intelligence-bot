@@ -1,5 +1,3 @@
-# scraper/tiktok_scraper.py
-
 from TikTokApi import TikTokApi
 
 async def scrape_tiktok_trends(limit=100):
@@ -15,17 +13,13 @@ async def scrape_tiktok_trends(limit=100):
                     "id": video.id,
                     "desc": video.desc,
                     "author": video.author.username,
-                    "stats": {
-                        "plays": video.stats.play_count,
-                        "likes": video.stats.like_count,
-                        "shares": video.stats.share_count,
-                        "comments": video.stats.comment_count,
-                        "saves": video.stats.save_count
-                    },
-                    "music": {
-                        "title": video.music.title,
-                        "author": video.music.author
-                    }
+                    "plays": video.stats.play_count,
+                    "likes": video.stats.like_count,
+                    "shares": video.stats.share_count,
+                    "comments": video.stats.comment_count,
+                    "saves": video.stats.save_count,
+                    "music_title": video.music.title,
+                    "music_author": video.music.author,
                 })
 
                 if len(results) >= limit:
