@@ -1,6 +1,6 @@
 import asyncio
 import logging
-from tiktok_scraper import scrape_trending
+from scraper.tiktok_scraper import scrape_trending
 
 logging.basicConfig(level=logging.DEBUG)
 
